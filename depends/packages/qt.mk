@@ -123,9 +123,9 @@ define $(package)_extract_cmds
   echo "$($(package)_qtwebsocket_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebsocket_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   echo "$($(package)_qtwebchannel_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebchannel_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   $(build_SHA256SUM) -c $($(package)_extract_dir)/.$($(package)_file_name).hash && \
-  echo ":v"
-  ls
-  echo "v:"
+  echo ":v" && \
+  ls && \
+  echo "v:" && \
   mkdir qtbase && \
   tar --strip-components=1 -xf $($(package)_source) -C qtbase && \
   mkdir qttranslations && \
