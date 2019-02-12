@@ -120,7 +120,7 @@ define $(package)_extract_cmds
   echo "$($(package)_sha256_hash)  $($(package)_source)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   echo "$($(package)_qttranslations_sha256_hash)  $($(package)_source_dir)/$($(package)_qttranslations_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   echo "$($(package)_qttools_sha256_hash)  $($(package)_source_dir)/$($(package)_qttools_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
-  echo "$($(package)_qtwebsocket_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebsocket_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
+  echo "$($(package)_qtwebsocket_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebsockets_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   echo "$($(package)_qtwebchannel_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebchannel_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   $(build_SHA256SUM) -c $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   mkdir qtbase && \
