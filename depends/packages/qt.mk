@@ -133,7 +133,7 @@ define $(package)_extract_cmds
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebchannel_file_name) -C qtwebchannel && \
   mkdir qtwebsockets && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebsockets_file_name) -C qtwebsockets && \
-  echo "v:"
+  echo "v: flag 0"
 endef
 
 define $(package)_preprocess_cmds
@@ -154,7 +154,8 @@ define $(package)_preprocess_cmds
   echo "QMAKE_LFLAGS     += $($(package)_ldflags)" >> qtbase/mkspecs/common/gcc-base.conf && \
   sed -i.old "s|QMAKE_CFLAGS            = |QMAKE_CFLAGS            = $($(package)_cflags) $($(package)_cppflags) |" qtbase/mkspecs/win32-g++/qmake.conf && \
   sed -i.old "s|QMAKE_LFLAGS            = |QMAKE_LFLAGS            = $($(package)_ldflags) |" qtbase/mkspecs/win32-g++/qmake.conf && \
-  sed -i.old "s|QMAKE_CXXFLAGS          = |QMAKE_CXXFLAGS            = $($(package)_cxxflags) $($(package)_cppflags) |" qtbase/mkspecs/win32-g++/qmake.conf
+  sed -i.old "s|QMAKE_CXXFLAGS          = |QMAKE_CXXFLAGS            = $($(package)_cxxflags) $($(package)_cppflags) |" qtbase/mkspecs/win32-g++/qmake.conf && \
+  echo "v: flag 1"
 endef
 
 define $(package)_config_cmds
@@ -166,10 +167,11 @@ define $(package)_config_cmds
   cd ../qttranslations && ../qtbase/bin/qmake qttranslations.pro -o Makefile && \
   cd translations && ../../qtbase/bin/qmake translations.pro -o Makefile && cd ../.. &&\
   cd ../qtwebchannel && ../qtbase/bin/qmake qtwebchannel.pro -o Makefile && \
-  cd src/webchannel && ../../qtbase/bin/qmake webchannel.pro -o Makefile && cd ../.. &&\
+  cd ../src/webchannel && ../../qtbase/bin/qmake webchannel.pro -o Makefile && cd ../.. &&\
   cd ../qtwebsockets && ../qtbase/bin/qmake qtwebsockets.pro -o Makefile && \
-  cd src/websockets && ../../qtbase/bin/qmake websockets.pro -o Makefile && cd ../.. &&\
-  cd qttools/src/linguist/lrelease/ && ../../../../qtbase/bin/qmake lrelease.pro -o Makefile
+  cd ../src/websockets && ../../qtbase/bin/qmake websockets.pro -o Makefile && cd ../.. &&\
+  cd qttools/src/linguist/lrelease/ && ../../../../qtbase/bin/qmake lrelease.pro -o Makefile && \
+  echo "v: flag 2"
 endef
 
 define $(package)_build_cmds
@@ -177,7 +179,8 @@ define $(package)_build_cmds
   $(MAKE) -C ../qttools/src/linguist/lrelease && \
   $(MAKE) -C ../qttranslations && \
   $(MAKE) -C ../qtwebchannel && \
-  $(MAKE) -C ../qtwebsockets
+  $(MAKE) -C ../qtwebsockets && \
+  echo "v: flag 3"
 endef
 
 define $(package)_stage_cmds
