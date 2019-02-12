@@ -123,20 +123,17 @@ define $(package)_extract_cmds
   echo "$($(package)_qtwebsocket_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebsocket_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   echo "$($(package)_qtwebchannel_sha256_hash)  $($(package)_source_dir)/$($(package)_qtwebchannel_file_name)" > $($(package)_extract_dir)/.$($(package)_file_name).hash && \
   $(build_SHA256SUM) -c $($(package)_extract_dir)/.$($(package)_file_name).hash && \
-  echo ":v" && \
-  ls -la && \
-  ls $($(package)_extract_dir)&& \
-  echo "v:" && \
   mkdir qtbase && \
   tar --strip-components=1 -xf $($(package)_source) -C qtbase && \
   mkdir qttranslations && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttranslations_file_name) -C qttranslations && \
+  mkdir qttools && \
+  tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttools_file_name) -C qttools && \
   mkdir qtwebchannel && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebchannel_file_name) -C qtwebchannel && \
   mkdir qtwebsockets && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebsockets_file_name) -C qtwebsockets && \
-  mkdir qttools && \
-  tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttools_file_name) -C qttools
+  echo "v:"
 endef
 
 define $(package)_preprocess_cmds
