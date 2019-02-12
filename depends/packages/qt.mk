@@ -113,7 +113,6 @@ $(call fetch_file,$(package),$($(package)_download_path),$($(package)_qttranslat
 $(call fetch_file,$(package),$($(package)_download_path),$($(package)_qttools_file_name),$($(package)_qttools_file_name),$($(package)_qttools_sha256_hash)) && \
 $(call fetch_file,$(package),$($(package)_download_path),$($(package)_qtwebsockets_file_name),$($(package)_qtwebsockets_file_name),$($(package)_qtwebsockets_sha256_hash)) && \
 $(call fetch_file,$(package),$($(package)_download_path),$($(package)_qtwebchannel_file_name),$($(package)_qtwebchannel_file_name),$($(package)_qtwebchannel_sha256_hash))
-
 endef
 
 define $(package)_extract_cmds
@@ -128,13 +127,10 @@ define $(package)_extract_cmds
   tar --strip-components=1 -xf $($(package)_source) -C qtbase && \
   mkdir qttranslations && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttranslations_file_name) -C qttranslations && \
-
   mkdir qtwebchannel && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebchannel_file_name) -C qtwebchannel && \
-
   mkdir qtwebsockets && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qtwebsockets_file_name) -C qtwebsockets && \
-
   mkdir qttools && \
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttools_file_name) -C qttools
 endef
@@ -178,10 +174,9 @@ endef
 define $(package)_build_cmds
   $(MAKE) -C src $(addprefix sub-,$($(package)_qt_libs)) && \
   $(MAKE) -C ../qttools/src/linguist/lrelease && \
-  $(MAKE) -C ../qttranslations
-  $(MAKE) -C ../qtwebchannel
+  $(MAKE) -C ../qttranslations && \
+  $(MAKE) -C ../qtwebchannel && \
   $(MAKE) -C ../qtwebsockets
-
 endef
 
 define $(package)_stage_cmds
