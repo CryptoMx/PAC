@@ -3,7 +3,7 @@
 
 //#include "bitcoingui.h"
 
-#include <QtWebChannel>
+#include <QtWebChannel/QWebChannelAbstractTransport>
 #include <QtWebSockets/QWebSocket>
 
 QT_BEGIN_NAMESPACE
