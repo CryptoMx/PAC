@@ -168,7 +168,6 @@ define $(package)_config_cmds
   cd translations && ../../qtbase/bin/qmake translations.pro -o Makefile && cd ../.. &&\
   ls && \
   cd qtwebchannel && ../qtbase/bin/qmake qtwebchannel.pro -o Makefile && \
-  nano qmetaobjectpublisher.cpp && \
   cd src/webchannel && ../../../qtbase/bin/qmake webchannel.pro -o Makefile && cd ../../.. &&\
   cd qtwebsockets && ../qtbase/bin/qmake qtwebsockets.pro -o Makefile && \
   cd src/websockets && ../../../qtbase/bin/qmake websockets.pro -o Makefile && cd ../../.. &&\
