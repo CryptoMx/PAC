@@ -168,9 +168,9 @@ define $(package)_config_cmds
   cd translations && ../../qtbase/bin/qmake translations.pro -o Makefile && cd ../.. &&\
   ls && \
   cd qtwebchannel && ../qtbase/bin/qmake qtwebchannel.pro -o Makefile && \
-  cd src/webchannel && ../../qtbase/bin/qmake webchannel.pro -o Makefile && cd ../.. &&\
+  cd src/webchannel && ../../../qtbase/bin/qmake webchannel.pro -o Makefile && cd ../.. &&\
   cd qtwebsockets && ../qtbase/bin/qmake qtwebsockets.pro -o Makefile && \
-  cd src/websockets && ../../qtbase/bin/qmake websockets.pro -o Makefile && cd ../.. &&\
+  cd src/websockets && ../../../qtbase/bin/qmake websockets.pro -o Makefile && cd ../.. &&\
   cd qttools/src/linguist/lrelease/ && ../../../../qtbase/bin/qmake lrelease.pro -o Makefile && \
   echo "v: flag 2"
 endef
