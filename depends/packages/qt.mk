@@ -1,9 +1,9 @@
 PACKAGE=qt
-$(package)_version=5.5.0
-$(package)_download_path=http://download.qt.io/archive/qt/5.5/$($(package)_version)/submodules
+$(package)_version=5.6.0
+$(package)_download_path=http://download.qt.io/archive/qt/5.6/$($(package)_version)/submodules
 $(package)_suffix=opensource-src-$($(package)_version).tar.gz
 $(package)_file_name=qtbase-$($(package)_suffix)
-$(package)_sha256_hash=7e82b1318f88e56a2a9376e069aa608d4fd96b48cb0e1b880ae658b0a1af0561
+$(package)_sha256_hash=3004d5e20413edcc763d5efeebcde6785fec863d904c77c8d87885c6eeb8a70c
 $(package)_dependencies=openssl
 $(package)_linux_dependencies=freetype fontconfig dbus libxcb libX11 xproto libXext
 $(package)_build_subdir=qtbase
@@ -11,16 +11,16 @@ $(package)_qt_libs=corelib network widgets gui plugins testlib
 $(package)_patches=mac-qmake.conf fix-xcb-include-order.patch mingw-uuidof.patch pidlist_absolute.patch
 
 $(package)_qttranslations_file_name=qttranslations-$($(package)_suffix)
-$(package)_qttranslations_sha256_hash=c4bd6db6e426965c6f8824c54e81f68bbd61e2bae1bcadc328c6e81c45902a0d
+$(package)_qttranslations_sha256_hash=4629b7a473ee2102bf14165aa20679670e2b3d9f5e593b6e58c73dd66f200202
 
 $(package)_qttools_file_name=qttools-$($(package)_suffix)
-$(package)_qttools_sha256_hash=d9e06bd19ecc86afba5e95d45a906d1bc1ad579aa70001e36143c1aaf695bdd6
+$(package)_qttools_sha256_hash=34cabb6822b0e3555f31b7da03baf7f272e6b7a391b58c09a82e859e621e997d
 
 $(package)_qtwebsockets_file_name=qtwebsockets-$($(package)_suffix)
-$(package)_qtwebsockets_sha256_hash=395ce09eedebdc13369c8c970e50ab2644fd294d8b82d880114e3e88dbde2c79
+$(package)_qtwebsockets_sha256_hash=36918bffef79aaf516b56dd37150e189cb6bf7e7366164093ac30292d57ed3f3
 
 $(package)_qtwebchannel_file_name=qtwebchannel-$($(package)_suffix)
-$(package)_qtwebchannel_sha256_hash=01ed38283781a87501163243f531065407e6e29a4e3446db26f1196e045bde38
+$(package)_qtwebchannel_sha256_hash=2043f538a1014ae6da68b43da687f65a4af26f2356a42b3678319b2f33caaa85
 
 $(package)_extra_sources  = $($(package)_qttranslations_file_name)
 $(package)_extra_sources += $($(package)_qttools_file_name)
