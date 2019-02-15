@@ -1,0 +1,7 @@
+--- old/qtwebchannel/src/webchannel/webchannel.pro
++++ new/qtwebchannel/src/webchannel/webchannel.pro
+@@ -1,5 +1,5 @@
+ TARGET = QtWebChannel
+-QT = core-private
++QT = core-private qml
+ CONFIG += warn_on strict_flags
