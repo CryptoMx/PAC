@@ -9,6 +9,7 @@ packages:
 - "ca-certificates"
 - "curl"
 - "g++"
+- "clang"
 - "git"
 - "pkg-config"
 - "autoconf"
