@@ -195,9 +195,9 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     // Not used
     currentAnonymizedBalance = anonymizedBalance;
 
-    ui->iconLabelAvailable->setPixmap(QPixmap(":icons/bitcoin-32"));
-    ui->iconLabelPending->setPixmap(QPixmap(":icons/bitcoin-32"));
-    ui->iconLabelTotal->setPixmap(QPixmap(":icons/bitcoin-32"));
+    ui->iconLabelAvailable->setPixmap(QPixmap(":icons/bitcoin"));
+    ui->iconLabelPending->setPixmap(QPixmap(":icons/bitcoin"));
+    ui->iconLabelTotal->setPixmap(QPixmap(":icons/bitcoin"));
     ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));

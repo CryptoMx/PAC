@@ -3,7 +3,6 @@
         <file alias="bitcoin">res/icons/bitcoin.png</file>
         <file alias="prompticon">res/icons/chevron.png</file>
         <file alias="warning">res/icons/warning.png</file>
-        <file alias="bitcoin-32">res/icons/bitcoin-32.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="VolteRounded-Regular">res/fonts/VolteRounded-Regular.otf</file>
