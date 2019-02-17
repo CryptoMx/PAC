@@ -203,7 +203,7 @@ AC_DEFUN([BITCOIN_QT_CONFIGURE],[
 
   BITCOIN_QT_PATH_PROGS([MOC], [moc-qt${bitcoin_qt_got_major_vers} moc${bitcoin_qt_got_major_vers} moc], $qt_bin_path)
   BITCOIN_QT_PATH_PROGS([UIC], [uic-qt${bitcoin_qt_got_major_vers} uic${bitcoin_qt_got_major_vers} uic], $qt_bin_path)
-  BITCOIN_QT_PATH_PROGS([RCC], [rcc-qt${bitcoin_qt_got_major_vers} rcc${bitcoin_qt_got_major_vers} rcc], $qt_bin_path)
+  BITCOIN_QT_PATH_PROGS([RCC], [rcc-qt5 rcc5 rcc], $qt_bin_path)
   BITCOIN_QT_PATH_PROGS([LRELEASE], [lrelease-qt${bitcoin_qt_got_major_vers} lrelease${bitcoin_qt_got_major_vers} lrelease], $qt_bin_path)
   BITCOIN_QT_PATH_PROGS([LUPDATE], [lupdate-qt${bitcoin_qt_got_major_vers} lupdate${bitcoin_qt_got_major_vers} lupdate],$qt_bin_path, yes)
 
@@ -217,7 +217,7 @@ AC_DEFUN([BITCOIN_QT_CONFIGURE],[
     if test "$ac_cv_prog_rcc_accepts_format_version" = yes; then
       RCCFLAGS="--format-version 1"
     else
-      RCCFLAGS=
+      RCCFLAGS="--format-version 1"
     fi
     AC_SUBST(RCCFLAGS)
   ])
