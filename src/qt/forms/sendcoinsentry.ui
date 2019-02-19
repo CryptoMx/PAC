@@ -251,7 +251,7 @@
          </size>
         </property>
         <property name="class" stdset="0">
-         <string>LineEdit_PacCoins</string>
+         <string>LineEdit</string>
         </property>
        </widget>
       </item>
