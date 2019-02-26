@@ -17,6 +17,9 @@
 #include "script/script.h"
 #include "script/standard.h"
 #include "util.h"
+#include "guiconstants.h"
+#include <iostream>
+#include <string>
 
 #ifdef WIN32
 #ifdef _WIN32_WINNT
@@ -87,6 +90,14 @@ namespace GUIUtil {
 QString dateTimeStr(const QDateTime &date)
 {
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
+}
+QString timeStr(const QDateTime &date)
+{
+    return date.toString("hh:mm");
+}
+QString dateStr(const QDateTime &date)
+{
+    return date.date().toString(Qt::SystemLocaleShortDate);
 }
 
 QString dateTimeStr(qint64 nTime)
@@ -907,7 +918,14 @@ QString getThemeName()
     if(!theme.isEmpty()){
         return theme;
     }
-    return QString("light");  
+    return QString("pac");
+}
+void setGUITextColor(){
+    QString theme = getThemeName();
+    if( theme.toStdString().compare("pac") == 0 )
+        COLOR_TEXT = QColor(255,255,255);
+    else
+        COLOR_TEXT = QColor(20,20,20);
 }
 
 // Open CSS when configured
@@ -916,21 +934,21 @@ QString loadStyleSheet()
     QString styleSheet;
     QSettings settings;
     QString cssName;
-    QString theme = settings.value("theme", "").toString();
+    QString theme = QString("pac");//settings.value("theme", "").toString();
 
     if(!theme.isEmpty()){
-        cssName = QString(":/css/") + theme; 
+        cssName = QString(":/css/pac");
     }
     else {
-        cssName = QString(":/css/light");  
-        settings.setValue("theme", "light");
+        cssName = QString(":/css/pac");
+        settings.setValue("theme", "pac");
     }
     
     QFile qFile(cssName);      
     if (qFile.open(QFile::ReadOnly)) {
         styleSheet = QLatin1String(qFile.readAll());
     }
-        
+    setGUITextColor();
     return styleSheet;
 }
 

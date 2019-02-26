@@ -18,6 +18,10 @@
 #include <QPoint>
 #include <QPushButton>
 #include <QSystemTrayIcon>
+#include <boost/filesystem/path.hpp>
+#include <QNetworkRequest>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 class ClientModel;
 class NetworkStyle;
@@ -98,6 +102,7 @@ private:
     QAction *overviewAction;
     QAction *historyAction;
     QAction *masternodeAction;
+    QAction *privateAction;
     QAction *proposalAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -137,6 +142,15 @@ private:
     HelpMessageDialog *helpMessageDialog;
     ModalOverlay *modalOverlay;
 
+    QFrame *headerFrame;
+    QPushButton *btnImg;
+    QLabel *messageLabel;
+
+    QNetworkAccessManager *managerCurrency;
+    QNetworkRequest requestCurrency;
+    QNetworkAccessManager *managerNews;
+    QNetworkRequest requestNews;
+
     /** Keep track of previous number of blocks, to detect progress */
     int prevBlocks;
     int spinnerFrame;
@@ -153,7 +167,8 @@ private:
     void createTrayIcon(const NetworkStyle *networkStyle);
     /** Create system tray menu (or setup the dock menu) */
     void createIconMenu(QMenu *pmenu);
-
+    /** Create the top header bar where the message and profile picture will be located*/
+    void createHeaderBar();
     /** Enable or disable all wallet-related actions */
     void setWalletActionsEnabled(bool enabled);
 
@@ -219,6 +234,8 @@ private Q_SLOTS:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
+    /** Switch to private (section) page */
+    void gotoPrivatePage();
     /** Switch to masternode page */
     void gotoMasternodePage();
     /** Switch to proposal page */
@@ -233,9 +250,17 @@ private Q_SLOTS:
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
 
+    /** API PAC_USD request */
+    void managerCurrencyFinished(QNetworkReply *replyC);
+    /** API News request */
+    void managerNewsFinished(QNetworkReply *replyN);
+
+
     /** Show open dialog */
     void openClicked();
 #endif // ENABLE_WALLET
+    /** It will open a file picker to choose the image file*/
+    void selectProfileImageFile();
     /** Show configuration dialog */
     void optionsClicked();
     /** Show about dialog */

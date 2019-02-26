@@ -56,6 +56,12 @@ MasternodeList::MasternodeList(const PlatformStyle *platformStyle, QWidget *pare
     ui->tableWidgetMasternodes->setColumnWidth(3, columnActiveWidth);
     ui->tableWidgetMasternodes->setColumnWidth(4, columnLastSeenWidth);
 
+    ui->tableWidgetMasternodes->setAlternatingRowColors(false);
+    ui->tableWidgetMasternodes->setShowGrid(false);
+
+    ui->tableWidgetMyMasternodes->setAlternatingRowColors(false);
+    ui->tableWidgetMyMasternodes->setShowGrid(false);
+    
     ui->tableWidgetMyMasternodes->setContextMenuPolicy(Qt::CustomContextMenu);
 
     QAction *startAliasAction = new QAction(tr("Start alias"), this);
@@ -68,6 +74,11 @@ MasternodeList::MasternodeList(const PlatformStyle *platformStyle, QWidget *pare
     connect(timer, SIGNAL(timeout()), this, SLOT(updateNodeList()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateMyNodeList()));
     timer->start(1000);
+
+    /*QLabel *lblMasternodes = new QLabel;
+    lblMasternodes->setText("MASTERNODES");
+    lblMasternodes->setAlignment(Qt::AlignBottom | Qt::AlignLeft);
+    lblMasternodes->setParent(this);*/
 
     fFilterUpdated = false;
     nTimeFilterUpdated = GetTime();

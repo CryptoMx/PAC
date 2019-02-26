@@ -74,12 +74,12 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     /* Window elements init */
 #ifdef Q_OS_MAC
     /* remove Window tab on Mac */
-    ui->tabWidget->removeTab(ui->tabWidget->indexOf(ui->tabWindow));
+    ui->tabWidget_OptionsDialog->removeTab(ui->tabWidget_OptionsDialog->indexOf(ui->tabWindow));
 #endif
 
     /* remove Wallet tab in case of -disablewallet */
     if (!enableWallet) {
-        ui->tabWidget->removeTab(ui->tabWidget->indexOf(ui->tabWallet));
+        ui->tabWidget_OptionsDialog->removeTab(ui->tabWidget_OptionsDialog->indexOf(ui->tabWallet));
     }
 
     /* Display elements init */
@@ -92,7 +92,9 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     
     /* Theme selector */
-    ui->theme->addItem(QString("(default)"), QVariant("light"));
+    ui->theme->addItem(QString("pac theme"), QVariant("pac"));
+    ui->theme->setCurrentIndex(1);
+    //ui->theme->addItem(QString("light"), QVariant("light"));
     //ui->theme->addItem(QString("PAC-light"), QVariant("light"));
     //ui->theme->addItem(QString("PAC-light-hires"), QVariant("light-hires"));
     //ui->theme->addItem(QString("PAC-blue"), QVariant("drkblue"));
