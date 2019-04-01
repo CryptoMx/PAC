@@ -168,11 +168,8 @@ BitcoinGUI::BitcoinGUI(const PlatformStyle *platformStyle, const NetworkStyle *n
 
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
 
-
     //std::cout << "Bitcoingui height: " << this->height() << std::endl;
     //settings.setValue("WindowHeight",this->height());//saving the height, we'll use it later for the qrcode
-
-
     this->setStyleSheet(GUIUtil::loadStyleSheet());
     QString fontType = GUIUtil::getFontType();
 
