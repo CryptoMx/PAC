@@ -92,14 +92,22 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     
     /* Theme selector */
-    ui->theme->addItem(QString("PAC-light"), QVariant("light"));
-    ui->theme->addItem(QString("PAC-light-hires"), QVariant("light-hires"));
-    ui->theme->addItem(QString("PAC-light-retro"), QVariant("light-retro"));
-    ui->theme->addItem(QString("PAC-light-hires-retro"), QVariant("light-hires-retro"));
-    ui->theme->addItem(QString("PAC-blue"), QVariant("drkblue"));
-    ui->theme->addItem(QString("PAC-Crownium"), QVariant("crownium"));
-    ui->theme->addItem(QString("PAC-traditional"), QVariant("trad"));
-    
+    ui->theme->addItem(QString("DASH-light"), QVariant("light"));
+    ui->theme->addItem(QString("DASH-light-hires"), QVariant("light-hires"));
+    ui->theme->addItem(QString("DASH-light-retro"), QVariant("light-retro"));
+    ui->theme->addItem(QString("DASH-light-hires-retro"), QVariant("light-hires-retro"));
+    ui->theme->addItem(QString("DASH-blue"), QVariant("drkblue"));
+    ui->theme->addItem(QString("DASH-Crownium"), QVariant("crownium"));
+    ui->theme->addItem(QString("DASH-traditional"), QVariant("trad"));
+
+    /* Font Selector */
+
+    fontComboBox = ui->cboFontType;
+    fontComboBox->addItem(QString("Volte Rounded"), QVariant("Volte Rounded"));
+    fontComboBox->addItem(QString("Gotham Medium"), QVariant("Gotham Medium"));
+    fontComboBox->addItem(QString("Gotham Bold"), QVariant("Gotham Bold"));
+    fontComboBox->setCurrentIndex(1);
+
     /* Language selector */
     QDir translations(":translations");
 
@@ -198,6 +206,7 @@ void OptionsDialog::setModel(OptionsModel *_model)
     connect(ui->theme, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString &)), this, SLOT(showRestartWarning()));
+    connect(fontComboBox, SIGNAL(currentFontChanged(QFont)), this, SLOT(showRestartWarning()));
 }
 
 void OptionsDialog::setMapper()
@@ -243,6 +252,7 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->lang, OptionsModel::Language);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
     mapper->addMapping(ui->thirdPartyTxUrls, OptionsModel::ThirdPartyTxUrls);
+    mapper->addMapping(ui->cboFontType, OptionsModel::FontType);
 
 }
 
