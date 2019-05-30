@@ -960,7 +960,7 @@ QString getThemeName()
 }
 void setGUITextColor(){
     QString theme = getThemeName();
-    if( theme.toStdString().compare("pac") == 0 )
+    if( theme.toStdString().compare("drkblue") == 0 )
         COLOR_TEXT = QColor(255,255,255);
     else
         COLOR_TEXT = QColor(20,20,20);
@@ -978,8 +978,8 @@ QString loadStyleSheet()
         cssName = QString(":/css/") + theme; 
     }
     else {
-        cssName = QString(":/css/light");  
-        settings.setValue("theme", "light");
+        cssName = QString(":/css/drkblue");
+        settings.setValue("theme", "drkblue");
     }
     
     QFile qFile(cssName);      
