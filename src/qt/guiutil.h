@@ -15,6 +15,7 @@
 #include <QString>
 #include <QTableView>
 #include <QLabel>
+#include <QColor>
 
 #include <boost/filesystem.hpp>
 
