@@ -31,20 +31,19 @@ packages:
 - "python3"
 - "libxkbcommon0"
 remotes:
-- "url": "https://github.com/PACCommunity/PAC.git"
+- "url": "https://github.com/CryptoMx/PAC.git"
   "dir": "PAC"
 files: []
 script: |
-
   WRAP_DIR=$HOME/wrapped
-  HOSTS="i686-pc-linux-gnu x86_64-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu"
+  HOSTS="x86_64-linux-gnu "
+  #i686-pc-linux-gnu  arm-linux-gnueabihf aarch64-linux-gnu
   CONFIGFLAGS="--enable-glibc-back-compat --enable-reduce-exports --disable-bench --disable-gui-tests"
   FAKETIME_HOST_PROGS=""
   FAKETIME_PROGS="date ar ranlib nm"
   HOST_CFLAGS="-O2 -g"
   HOST_CXXFLAGS="-O2 -g"
   HOST_LDFLAGS=-static-libstdc++
-
   export QT_RCC_TEST=1
   export GZIP="-9n"
   export TAR_OPTIONS="--mtime="$REFERENCE_DATE\\\ $REFERENCE_TIME""
@@ -55,7 +54,6 @@ script: |
     export SOURCES_PATH=${GBUILD_COMMON_CACHE}
     export BASE_CACHE=${GBUILD_PACKAGE_CACHE}/depends
     mkdir -p ${BASE_CACHE} ${SOURCES_PATH}
-
     # Setup ccache to use correct cache directories and fix the compiler check of ccache
     CONFIGFLAGS="${CONFIGFLAGS} --enable-ccache"
     export CCACHE_DIR=${GBUILD_PACKAGE_CACHE}/ccache
@@ -73,10 +71,8 @@ script: |
   else
     CONFIGFLAGS="${CONFIGFLAGS} --disable-ccache"
   fi
-
   # We include the GCC version in all wrappers so that ccache can detect compiler upgrades when hashing the wrappers
   GCCVERSION=`gcc --version | head -1`
-
   function create_global_faketime_wrappers {
   for prog in ${FAKETIME_PROGS}; do
     echo '#!/bin/bash' > ${WRAP_DIR}/${prog}
@@ -89,7 +85,6 @@ script: |
     touch -d "${REFERENCE_DATETIME}" ${WRAP_DIR}/${prog}
   done
   }
-
   function create_per-host_faketime_wrappers {
   for i in $HOSTS; do
     for prog in ${FAKETIME_HOST_PROGS}; do
@@ -104,24 +99,19 @@ script: |
     done
   done
   }
-
   # Faketime for depends so intermediate results are comparable
   export PATH_orig=${PATH}
   create_global_faketime_wrappers "2000-01-01 12:00:00"
   create_per-host_faketime_wrappers "2000-01-01 12:00:00"
   export PATH=${WRAP_DIR}:${PATH}
-
   EXTRA_INCLUDES_BASE=$WRAP_DIR/extra_includes
   mkdir -p $EXTRA_INCLUDES_BASE
-
   # x86 needs /usr/include/i386-linux-gnu/asm pointed to /usr/include/x86_64-linux-gnu/asm,
   # but we can't write there. Instead, create a link here and force it to be included in the
   # search paths by wrapping gcc/g++.
-
   mkdir -p $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu
   rm -f $WRAP_DIR/extra_includes/i686-pc-linux-gnu/asm
   ln -s /usr/include/x86_64-linux-gnu/asm $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu/asm
-
   for prog in gcc g++; do
   rm -f ${WRAP_DIR}/${prog}
   cat << EOF > ${WRAP_DIR}/${prog}
@@ -141,7 +131,6 @@ script: |
   chmod +x ${WRAP_DIR}/${prog}
   touch -d "${REFERENCE_DATETIME}" ${WRAP_DIR}/${prog}
   done
-
   cd PAC
   BASEPREFIX=`pwd`/depends
   # Build dependencies for each host
@@ -153,26 +142,23 @@ script: |
     make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}"
     unset HOST_ID_SALT
   done
-
   # Faketime for binaries
   export PATH=${PATH_orig}
   create_global_faketime_wrappers "${REFERENCE_DATETIME}"
   create_per-host_faketime_wrappers "${REFERENCE_DATETIME}"
   export PATH=${WRAP_DIR}:${PATH}
-
   # Create the release tarball using (arbitrarily) the first host
   ./autogen.sh
   CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
   make dist
-  SOURCEDIST=`echo Paccoin-*.tar.gz`
+  SOURCEDIST=`echo paccoincore-*.tar.gz`
   DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
   # Correct tar file order
   mkdir -p temp
   pushd temp
   tar xf ../$SOURCEDIST
-  find Paccoin-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
+  find paccoincore-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
   popd
-
   ORIGPATH="$PATH"
   # Extract the release tarball into a dir for each host and build
   for i in ${HOSTS}; do
@@ -182,11 +168,9 @@ script: |
     INSTALLPATH=`pwd`/installed/${DISTNAME}
     mkdir -p ${INSTALLPATH}
     tar --strip-components=1 -xf ../$SOURCEDIST
-
     CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" CXXFLAGS="${HOST_CXXFLAGS}" LDFLAGS="${HOST_LDFLAGS}"
     make ${MAKEOPTS}
     make ${MAKEOPTS} -C src check-security
-
     #TODO: This is a quick hack that disables symbol checking for arm.
     #      Instead, we should investigate why these are popping up.
     #      For aarch64, we'll need to bump up the min GLIBC version, as the abi
@@ -196,7 +180,6 @@ script: |
        arm-*) : ;;
        *) make ${MAKEOPTS} -C src check-symbols ;;
     esac
-
     make install DESTDIR=${INSTALLPATH}
     cd installed
     find . -name "lib*.la" -delete
@@ -211,7 +194,6 @@ script: |
   done
   mkdir -p $OUTDIR/src
   mv $SOURCEDIST $OUTDIR/src
-
   # Compress ccache (otherwise the assert file will get too huge)
   if [ "$CCACHE_DIR" != "" ]; then
     pushd ${GBUILD_PACKAGE_CACHE}
